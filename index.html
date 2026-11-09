@@ -1226,7 +1226,7 @@ stage.addEventListener("keydown", e=>{ const k={ArrowLeft:[0,-6],ArrowRight:[0,6
 
 /* ===================== PHOTO EDITING: owner uploads into slots ===================== */
 const GROUPS=["nails","makeup","style"], GLABEL={nails:"Nails",makeup:"Makeup",style:"Style"};
-let slotMap={"about": {"asset": "4ab72a5b"}}, gallery=[{"id": "g0", "group": "nails", "asset": "2383645c"}, {"id": "g1", "group": "nails", "asset": "f672b91c"}, {"id": "g2", "group": "nails", "asset": "c0bcf962"}, {"id": "g3", "group": "nails", "asset": "b8423087"}, {"id": "g4", "group": "style", "asset": "c894c13d"}, {"id": "g5", "group": "style", "asset": "8612cd54"}, {"id": "g6", "group": "style", "asset": "30c05b92"}, {"id": "g7", "group": "style", "asset": "7f0dd2c4"}], edDb=null, edAssets=null, canEditPhotos=false;
+let slotMap={"about": {"asset": "e5691049"}}, gallery=[{"id": "g0", "group": "nails", "asset": "2383645c"}, {"id": "g1", "group": "nails", "asset": "f672b91c"}, {"id": "g2", "group": "nails", "asset": "c0bcf962"}, {"id": "g3", "group": "nails", "asset": "b8423087"}, {"id": "g4", "group": "style", "asset": "c894c13d"}, {"id": "g5", "group": "style", "asset": "8612cd54"}, {"id": "g6", "group": "style", "asset": "30c05b92"}, {"id": "g7", "group": "style", "asset": "7f0dd2c4"}, {"id": "g8", "group": "style", "asset": "e318dc18"}], edDb=null, edAssets=null, canEditPhotos=false;
 const blobUrl = id => "photos/" + id + ".jpg";
 function phTile(label){ return `<div class="ph" role="img" aria-label="${label} photo coming soon"><span>Photo coming soon</span></div>`; }
 function renderGallery(){
