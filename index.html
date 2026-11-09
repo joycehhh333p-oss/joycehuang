@@ -14,15 +14,15 @@
 <style>
 /* Layout: airy white page — a small name + three tabs on top, the name spelled in confetti, a two-column gallery of projects; no rules, no grids of labels. */
 :root{
-  --paper:#FFFFFF; --ink:#1B1B1F; --graphite:#6E6E76; --soft:#F4F4F6; --sheet:#F4F4F6; --rule:#ECECEF; --accent:#FF3E9E;
+  --paper:#FFFFFF; --ink:#1B1B1F; --block:#FFEAF3; --blockText:#55555C; --graphite:#6E6E76; --soft:#F4F4F6; --sheet:#F4F4F6; --rule:#ECECEF; --accent:#FF3E9E;
   --display:"Instrument Sans",Helvetica,Arial,sans-serif;
   --body:"Instrument Sans",Helvetica,Arial,sans-serif;
   --round:"Fredoka","Arial Rounded MT Bold",Helvetica,Arial,sans-serif;
   --kao:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
   --gut:clamp(18px,4vw,56px);
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#121215;--ink:#F1F1F4;--graphite:#A2A2AC;--soft:#1D1D22;--sheet:#1D1D22;--rule:#26262C;--accent:#FF6FB6;color-scheme:dark}}
-:root[data-theme="dark"]{--paper:#121215;--ink:#F1F1F4;--graphite:#A2A2AC;--soft:#1D1D22;--sheet:#1D1D22;--rule:#26262C;--accent:#FF6FB6;color-scheme:dark}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--block:#2A1C24;--blockText:#C9C6D0;--paper:#121215;--ink:#F1F1F4;--graphite:#A2A2AC;--soft:#1D1D22;--sheet:#1D1D22;--rule:#26262C;--accent:#FF6FB6;color-scheme:dark}}
+:root[data-theme="dark"]{--block:#2A1C24;--blockText:#C9C6D0;--paper:#121215;--ink:#F1F1F4;--graphite:#A2A2AC;--soft:#1D1D22;--sheet:#1D1D22;--rule:#26262C;--accent:#FF6FB6;color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:clip}
@@ -206,12 +206,25 @@ img.zoomable{cursor:zoom-in}
 .wip .cone{width:30px;height:30px;flex:none;transform-origin:50% 90%;animation:coneWob 1.6s ease-in-out infinite}
 .introrow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:16px;row-gap:24px;align-items:start;margin:clamp(20px,3vw,36px) 0 clamp(56px,8vw,110px)}
 .introrow .it{grid-column:1/8;display:grid;gap:14px}
-.introrow .hello{margin:0 0 6px;max-width:640px}
-.introrow .gl{margin:0;font-size:17px;line-height:1.55;color:var(--graphite);max-width:58ch;text-wrap:pretty}
+.introrow .hello{margin:0 0 6px;max-width:680px}
+.introrow .hello .hl{display:block;font-weight:600;color:var(--ink);font-size:clamp(28px,3vw,42px);line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
+.introrow .hello span{color:var(--graphite)}
+.introrow .gl{margin:0;font-size:17px;line-height:1.55;color:var(--blockText);max-width:58ch;text-wrap:pretty}
 .introrow .gl b{color:var(--ink);font-weight:600}
 .introrow .gl a{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px}
 .wip{grid-column:10/13;justify-self:end;max-width:260px;display:flex;gap:12px;align-items:flex-start;background:var(--soft);border-radius:16px;padding:14px 16px;margin-top:6px}
-.wip p{margin:0;font-size:13.5px;line-height:1.45;color:var(--graphite)}
+.glasswrap{position:relative;margin-top:8px;isolation:isolate}
+.gblobs{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;border-radius:22px}
+.gblobs i{position:absolute;border-radius:50%;opacity:.55;filter:blur(14px)}
+.gblobs i:nth-child(1){width:150px;height:150px;background:#FF3E9E;left:-40px;top:-50px}
+.gblobs i:nth-child(2){width:130px;height:130px;background:#FFD53D;right:14%;bottom:-70px}
+.gblobs i:nth-child(3){width:110px;height:110px;background:#33B5F2;right:-40px;top:-20px}
+.gblobs i:nth-child(4){width:80px;height:80px;background:#93DD4E;left:42%;top:-46px}
+.glass{position:relative;z-index:1;display:grid;gap:12px;padding:22px 26px;border-radius:22px;overflow:hidden;background:rgba(255,255,255,.58);-webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);border:1px solid rgba(255,255,255,.85);box-shadow:0 12px 40px rgba(27,27,31,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+.glass::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");opacity:.10;mix-blend-mode:multiply;pointer-events:none;z-index:-1}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .glass{background:rgba(29,29,34,.55);border-color:rgba(255,255,255,.08);box-shadow:0 12px 40px rgba(0,0,0,.3)}:root:not([data-theme="light"]) .glass::before{mix-blend-mode:screen;opacity:.05}}
+:root[data-theme="dark"] .glass{background:rgba(29,29,34,.55);border-color:rgba(255,255,255,.08)}
+.wip p{margin:0;font-size:13.5px;line-height:1.45;color:var(--blockText)}
 .wip b{display:block;font-weight:600;color:var(--ink);font-size:14px;margin-bottom:2px}
 @keyframes coneWob{0%,100%{transform:rotate(0) translateY(0)}20%{transform:rotate(-9deg) translateY(-2px)}40%{transform:rotate(7deg)}60%{transform:rotate(-4deg) translateY(-1px)}80%{transform:rotate(2deg)}}
 .tools{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:16px;margin:clamp(56px,6vw,88px) 0 0;padding-bottom:clamp(20px,2.5vw,32px)}
@@ -236,13 +249,17 @@ footer .cx .ig{justify-self:start}
 .mgrid .mw{font-size:14px;font-weight:500;color:var(--ink);display:flex;gap:8px;align-items:baseline}
 .mgrid .mw::before{content:"→";color:var(--sw,var(--accent))}
 mark{background:linear-gradient(transparent 58%,color-mix(in srgb,var(--sw,var(--accent)) 38%,transparent) 58%);color:inherit;padding:0 1px}
-.vgrid{grid-column:4/13;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.vgrid div{background:var(--soft);border-radius:14px;padding:16px 18px;display:grid;gap:6px;align-content:start}
-.vgrid i{width:12px;height:12px;border-radius:50%}
-.vgrid b{font-weight:600;font-size:17px}
-.vgrid p{margin:0;color:var(--graphite);font-size:15px;line-height:1.45}
-.sk{display:grid;gap:8px}
-.skd{color:var(--graphite);font-size:15px}
+.vals{grid-column:4/13;list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.vals li{display:inline-flex;align-items:center;gap:10px;background:var(--soft);border-radius:999px;padding:12px 20px;font-weight:600;font-size:clamp(17px,1.5vw,20px);letter-spacing:-.01em}
+.vals i{width:12px;height:12px;border-radius:50%;flex:none}
+.skg{grid-column:4/13;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.skg div{background:var(--soft);border-radius:14px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.skg b{font-weight:600;font-size:16px}
+.skp{display:flex;flex-wrap:wrap;gap:4px 12px}
+.skp a{font-size:14px;color:var(--graphite);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.skp a i{width:8px;height:8px;border-radius:50%}
+.skp a:hover{color:var(--ink);text-decoration:underline}
+.wtools{margin:0 0 clamp(60px,8vw,110px)}
 .mp a{font-size:14px;font-weight:500;color:var(--ink);text-decoration:none;background:var(--soft);border-radius:999px;padding:5px 12px;display:inline-flex;align-items:center;gap:6px}
 .mp a i{width:8px;height:8px;border-radius:50%}
 .mp a:hover{background:var(--ink);color:var(--paper)}
@@ -389,14 +406,15 @@ body.editing .editbar button{background:var(--accent)}
   footer .big,footer .cx{grid-column:1/-1}
   .p-head .tag,.p-head .intro{grid-column:1/-1}
   .pmeta{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .stg .sn,.stg>div,.stats>.lab,.ins>.lab,.cl>.lab,.ba>.lab,.sgrid,.ins blockquote,.cgrid,.cnote,.bagrid,.mx,.vgrid,.tools h2{grid-column:1/-1}
-  .vgrid{grid-template-columns:1fr 1fr}
+  .stg .sn,.stg>div,.stats>.lab,.ins>.lab,.cl>.lab,.ba>.lab,.sgrid,.ins blockquote,.cgrid,.cnote,.bagrid,.mx,.vals,.skg,.tools h2{grid-column:1/-1}
+  .skg{grid-template-columns:1fr 1fr}
+  .tools h2{margin-bottom:12px}
   .sgrid{grid-template-columns:1fr 1fr}
   .cgrid{grid-template-columns:1fr}
   .stg .sn{width:44px;height:44px;margin-bottom:10px}
   .mr{grid-template-columns:1fr;gap:8px}
-  .introrow .it{grid-column:1/-1}
-  .wip{grid-column:1/-1;justify-self:start;max-width:none;margin-top:0}
+  .introrow .it{grid-column:1/9}
+  .wip{grid-column:9/13;justify-self:stretch;max-width:none}
   .tb.has-img .tbimg,.tb.has-img h3,.tb.has-img .p,.dg>.lab,.dg h3,.dgfig,.dgl{grid-column:1/-1;grid-row:auto}
   .tb.has-img{grid-template-rows:none}
   .tb .lab,.tb h3,.tb .p,.ib .cap .lab,.ib .cap p,.next .lab,.next .t,.art img,.art .cap{grid-column:1/-1}
@@ -407,7 +425,8 @@ body.editing .editbar button{background:var(--accent)}
   .swatches{grid-template-columns:1fr 1fr}
   .sheet .bar .mid{display:none}
 }
-@media (max-width:480px){.mgrid{grid-template-columns:1fr}.ib .imgs,.shots{grid-template-columns:1fr !important}.steps{grid-template-columns:1fr}}
+@media (max-width:600px){.introrow .it,.wip{grid-column:1/-1}.wip{justify-self:start;margin-top:0}}
+@media (max-width:480px){.vals{gap:8px}.vals li{font-size:15px;padding:10px 14px;gap:8px}.skg div{padding:12px 14px}.skg b{font-size:15px}.skp{flex-direction:column;gap:2px}.mgrid{grid-template-columns:1fr}.ib .imgs,.shots{grid-template-columns:1fr !important}.steps{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none !important;animation:none !important;scroll-behavior:auto !important}}
 </style>
 
@@ -439,13 +458,23 @@ body.editing .editbar button{background:var(--accent)}
     <div class="confetti-wrap"><canvas id="confetti" aria-hidden="true"></canvas></div>
     <div class="introrow">
       <div class="it">
-        <p class="hello">Interdisciplinary designer and artist. <span>I like making whimsical things, thinking outside the box and turning ideas into something fun.</span></p>
-        <p class="gl">Trained first as a fine artist, I now design <b>human-centered objects, spaces and brands</b>. My anchor is how things make people feel: painting gave me an eye for color, material and emotion, and design taught me to start with people.</p>
-        <p class="gl">New here? Start with <a href="#embre" data-cur="open"><b>Embré</b></a> for a full process case study, from research to tested prototype.</p>
+        <p class="hello"><b class="hl">Interdisciplinary designer and artist.</b> <span>I like making whimsical things, thinking outside the box and turning ideas into something fun.</span></p>
+        <div class="glasswrap">
+          <div class="gblobs" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="glass">
+            <p class="gl">Trained first as a fine artist, I now design <b>human-centered objects, spaces and brands</b>. My anchor is how things make people feel: painting gave me an eye for color, material and emotion, and design taught me to start with people.</p>
+            <p class="gl">New here? Start with <a href="#embre" data-cur="open"><b>Embré</b></a> for a full process case study, from research to tested prototype.</p>
+          </div>
+        </div>
       </div>
       <aside class="wip" aria-label="Under construction"><svg class="cone" viewBox="0 0 32 32" aria-hidden="true"><path d="M13 4h6l7.2 21H5.8z" fill="#FF7A2F"/><path d="M11.4 10.6h9.2l1.4 4.2H10z" fill="#fff"/><path d="M9.2 17.6h13.6l1.4 4.2H7.8z" fill="#fff"/><path d="M13 4h6l.5 1.5h-7z" fill="#E85D10"/><rect x="3" y="25" width="26" height="4" rx="1.6" fill="#E85D10"/></svg><p><b>Under construction</b>New projects are on the way, and the current projects are still being updated too.</p></aside>
     </div>
     <div class="grid" id="grid"></div>
+    <section class="tools wtools" aria-labelledby="toolsH">
+      <h2 class="lab muted" id="toolsH">Tools I use<span class="thint">Tap a tool with a dot to see work made with it</span></h2>
+      <div class="mx"><div class="mr"><span class="mk2"><i style="background:#FF3E9E"></i>Graphic + layout</span><span class="mp"><span class="tl" data-tool="Illustrator">Illustrator</span><span class="tl" data-tool="Photoshop">Photoshop</span><span class="tl" data-tool="InDesign">InDesign</span><span class="tl" data-tool="Canva">Canva</span><span class="tl" data-tool="PowerPoint">PowerPoint</span></span><div class="tdraft" hidden></div></div><div class="mr"><span class="mk2"><i style="background:#FFD53D"></i>Drawing</span><span class="mp"><span class="tl" data-tool="Procreate">Procreate</span></span><div class="tdraft" hidden></div></div><div class="mr"><span class="mk2"><i style="background:#33B5F2"></i>3D + CAD</span><span class="mp"><span class="tl" data-tool="Rhino">Rhino</span><span class="tl" data-tool="AutoCAD">AutoCAD</span><span class="tl" data-tool="Revit">Revit</span><span class="tl" data-tool="SketchUp">SketchUp</span><span class="tl" data-tool="Fusion 360">Fusion 360</span></span><div class="tdraft" hidden></div></div><div class="mr"><span class="mk2"><i style="background:#93DD4E"></i>Prototyping</span><span class="mp"><span class="tl" data-tool="Arduino">Arduino</span><span class="tl" data-tool="3D printing">3D printing</span></span><div class="tdraft" hidden></div></div><div class="mr"><span class="mk2"><i style="background:#6B3FCB"></i>AI tools</span><span class="mp"><span class="tl" data-tool="Midjourney">Midjourney</span><span class="tl" data-tool="Lovart">Lovart</span></span><div class="tdraft" hidden></div></div></div>
+    </section>
+
   </section>
 
   <!-- ABOUT -->
@@ -464,17 +493,12 @@ body.editing .editbar button{background:var(--accent)}
 
     <section class="tools" aria-labelledby="valH">
       <h2 class="lab muted" id="valH">What I value</h2>
-      <div class="vgrid"><div><i style="background:#FF3E9E"></i><b>Start with people</b><p>Embré and Murmur both began with how people actually feel, not with the object.</p></div><div><i style="background:#FFD53D"></i><b>Make it whimsical</b><p>A tomato that ripens, a lamp you hug. I like design that makes people smile.</p></div><div><i style="background:#33B5F2"></i><b>Think outside the box</b><p>My work moves between objects, spaces, brands, wearables and painting.</p></div><div><i style="background:#93DD4E"></i><b>Feel first</b><p>Painting taught me to start from color, material and emotion.</p></div></div>
+      <ul class="vals"><li><i style="background:#FF3E9E"></i>Make it whimsical</li><li><i style="background:#FFD53D"></i>Start with people</li><li><i style="background:#33B5F2"></i>Experience-centered</li><li><i style="background:#93DD4E"></i>Form = function</li></ul>
     </section>
 
     <section class="tools" aria-labelledby="skH">
       <h2 class="lab muted" id="skH">Skills</h2>
-      <div class="mx" id="skills"><div class="mr"><span class="mk2">Research</span><span class="sk"><span class="skd">Diary studies, cultural probes, think-aloud testing, usability surveys</span><span class="mp skp" data-proj="embre,murmur"></span></span></div><div class="mr"><span class="mk2">Concept development</span><span class="sk"><span class="skd">Mind mapping, morphological charts, storyboarding</span><span class="mp skp" data-proj="embre,murmur"></span></span></div><div class="mr"><span class="mk2">Prototyping</span><span class="sk"><span class="skd">Arduino, sensors + LEDs, 3D printing, laser cutting</span><span class="mp skp" data-proj="embre,murmur"></span></span></div><div class="mr"><span class="mk2">3D + spatial</span><span class="sk"><span class="skd">3D modeling, rendering, floor plans and sections</span><span class="mp skp" data-proj="embre,tbar"></span></span></div><div class="mr"><span class="mk2">Brand + graphic</span><span class="sk"><span class="skd">Identity, packaging, menus, posters</span><span class="mp skp" data-proj="tbar,embre"></span></span></div><div class="mr"><span class="mk2">Material experimentation</span><span class="sk"><span class="skd">Casting, heat-forming, textile manipulation</span><span class="mp skp" data-proj="undertow,lichen"></span></span></div><div class="mr"><span class="mk2">Fine art</span><span class="sk"><span class="skd">Oil painting, charcoal, collage, relief</span><span class="mp skp" data-proj="paintings"></span></span></div></div>
-    </section>
-
-    <section class="tools" aria-labelledby="toolsH">
-      <h2 class="lab muted" id="toolsH">Tools I use<span class="thint">Tap a tool with a dot to see work made with it</span></h2>
-      <div class="mx"><div class="mr"><span class="mk2"><i style="background:#FF3E9E"></i>Graphic + layout</span><span class="mp"><span class="tl" data-tool="Illustrator">Illustrator</span><span class="tl" data-tool="Photoshop">Photoshop</span><span class="tl" data-tool="InDesign">InDesign</span><span class="tl" data-tool="Canva">Canva</span><span class="tl" data-tool="PowerPoint">PowerPoint</span></span><div class="tdraft" hidden></div></div><div class="mr"><span class="mk2"><i style="background:#FFD53D"></i>Drawing</span><span class="mp"><span class="tl" data-tool="Procreate">Procreate</span></span><div class="tdraft" hidden></div></div><div class="mr"><span class="mk2"><i style="background:#33B5F2"></i>3D + CAD</span><span class="mp"><span class="tl" data-tool="Rhino">Rhino</span><span class="tl" data-tool="AutoCAD">AutoCAD</span><span class="tl" data-tool="Revit">Revit</span><span class="tl" data-tool="SketchUp">SketchUp</span><span class="tl" data-tool="Fusion 360">Fusion 360</span></span><div class="tdraft" hidden></div></div><div class="mr"><span class="mk2"><i style="background:#93DD4E"></i>Prototyping</span><span class="mp"><span class="tl" data-tool="Arduino">Arduino</span><span class="tl" data-tool="3D printing">3D printing</span></span><div class="tdraft" hidden></div></div><div class="mr"><span class="mk2"><i style="background:#6B3FCB"></i>AI tools</span><span class="mp"><span class="tl" data-tool="Midjourney">Midjourney</span><span class="tl" data-tool="Lovart">Lovart</span></span><div class="tdraft" hidden></div></div></div>
+      <div class="skg"><div><b>Research + concept</b><span class="skp" data-proj="embre,murmur"></span></div><div><b>Prototyping</b><span class="skp" data-proj="embre,murmur"></span></div><div><b>3D + spatial</b><span class="skp" data-proj="embre,tbar"></span></div><div><b>Brand + graphic</b><span class="skp" data-proj="tbar,embre"></span></div><div><b>Material experimentation</b><span class="skp" data-proj="undertow,lichen"></span></div><div><b>Fine art</b><span class="skp" data-proj="paintings"></span></div></div>
     </section>
 
     <section class="after" aria-labelledby="afterH">
